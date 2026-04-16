@@ -1,0 +1,62 @@
+<h1>User Directory</h1>
+
+<section>
+  <h2>Filters</h2>
+
+  <div class="filters">
+    <label>
+      Name:
+      <input [value]="nameFilter()" (input)="onNameFilter($any($event.target).value)" placeholder="Search by name..." />
+    </label>
+
+    <label>
+      City:
+      <select [value]="cityFilter()" (change)="onCityFilter($any($event.target).value)">
+        <option value="">All cities</option>
+        @for (city of cities(); track city) {
+          <option [value]="city">{{ city }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Company:
+      <select [value]="companyFilter()" (change)="onCompanyFilter($any($event.target).value)">
+        <option value="">All companies</option>
+        @for (company of companies(); track company) {
+          <option [value]="company">{{ company }}</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  <p>
+    {{ resultCount() }} result(s)
+    @if (hasActiveFilters()) {
+      · <button (click)="clearFilters()">Clear filters</button>
+    }
+  </p>
+</section>
+
+@if (loading()) {
+  <p>Loading...</p>
+}
+
+@if (error(); as err) {
+  <section class="error">
+    <p>{{ err }}</p>
+    <button (click)="retry()">Retry</button>
+  </section>
+}
+
+@for (user of users(); track user.id) {
+  <section>
+    <h3>{{ user.name }}</h3>
+    <p>{{ user.email }} · {{ user.phone }}</p>
+    <p><small>{{ user.address.city }} · {{ user.company.name }}</small></p>
+  </section>
+} @empty {
+  @if (!loading()) {
+    <p>No users found.</p>
+  }
+}
