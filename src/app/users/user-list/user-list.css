@@ -1,0 +1,94 @@
+:host {
+	display: block;
+}
+
+section {
+	margin: 1.5rem 0;
+	padding: 1rem;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+}
+
+button {
+	margin: 0.25rem;
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	border: none;
+	border-radius: 4px;
+	background: #1976d2;
+	color: white;
+	cursor: pointer;
+}
+
+button:hover {
+	background: #1565c0;
+}
+
+input {
+	padding: 0.5rem;
+	font-size: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+select {
+	padding: 0.5rem;
+	font-size: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.filters {
+	display: flex;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+.filters label {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	font-weight: 600;
+}
+
+.error {
+	border-color: #d32f2f;
+	color: #d32f2f;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th,
+td {
+	padding: 0.75rem;
+	text-align: left;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+thead th {
+	font-size: 0.875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: #4b5563;
+}
+
+tbody tr {
+	cursor: pointer;
+}
+
+tbody tr:nth-child(odd) {
+	background: #ffffff;
+}
+
+tbody tr:nth-child(even) {
+	background: #f8fafc;
+}
+
+tbody tr:hover,
+tbody tr:focus-visible {
+	background: #f3f8ff;
+	outline: none;
+}

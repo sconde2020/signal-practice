@@ -1,0 +1,65 @@
+<p><a routerLink="/users">Back to list</a></p>
+
+@if (loading()) {
+	<p>Loading user detail...</p>
+}
+
+@if (error(); as err) {
+	<section class="error">
+		<p>{{ err }}</p>
+	</section>
+}
+
+@if (user(); as selectedUser) {
+	<section class="panel">
+		<h2>Infos générales</h2>
+		<dl class="facts">
+			<div>
+				<dt>Nom</dt>
+				<dd>{{ selectedUser.name }}</dd>
+			</div>
+			<div>
+				<dt>Email</dt>
+				<dd>{{ selectedUser.email }}</dd>
+			</div>
+			<div>
+				<dt>Téléphone</dt>
+				<dd>{{ selectedUser.phone }}</dd>
+			</div>
+			<div>
+				<dt>Ville</dt>
+				<dd>{{ selectedUser.address.city }}</dd>
+			</div>
+		</dl>
+	</section>
+
+	<section class="panel">
+		<h2>Infos détaillées</h2>
+
+		<details open>
+			<summary>Identité</summary>
+			<div class="accordion-content">
+				<p><strong>Nom d'utilisateur :</strong> {{ selectedUser.username }}</p>
+				<p><strong>Site web :</strong> {{ selectedUser.website }}</p>
+			</div>
+		</details>
+
+		<details>
+			<summary>Adresse</summary>
+			<div class="accordion-content">
+				<p><strong>Rue :</strong> {{ selectedUser.address.street }}</p>
+				<p><strong>Suite :</strong> {{ selectedUser.address.suite }}</p>
+				<p><strong>Code postal :</strong> {{ selectedUser.address.zipcode }}</p>
+			</div>
+		</details>
+
+		<details>
+			<summary>Entreprise</summary>
+			<div class="accordion-content">
+				<p><strong>Nom :</strong> {{ selectedUser.company.name }}</p>
+				<p><strong>Slogan :</strong> {{ selectedUser.company.catchPhrase }}</p>
+				<p><strong>Activité :</strong> {{ selectedUser.company.bs }}</p>
+			</div>
+		</details>
+	</section>
+}

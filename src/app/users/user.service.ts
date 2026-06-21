@@ -1,5 +1,5 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { User } from './user';
+import { User } from '../user';
 import { UserApi } from './user.api';
 import { UserFilterStore } from './user-filter.store';
 
@@ -10,11 +10,17 @@ export class UserService {
 
     private _allUsers = signal<User[]>([]);
     private _users = signal<User[]>([]);
+    private _selectedUser = signal<User | null>(null);
     private _loading = signal(false);
     private _error = signal<string | null>(null);
+    private _detailLoading = signal(false);
+    private _detailError = signal<string | null>(null);
 
     readonly loading = this._loading.asReadonly();
     readonly error = this._error.asReadonly();
+    readonly selectedUser = this._selectedUser.asReadonly();
+    readonly detailLoading = this._detailLoading.asReadonly();
+    readonly detailError = this._detailError.asReadonly();
 
     readonly cities = computed(() =>
         [...new Set(this._allUsers().map(u => u.address.city))].sort()
@@ -41,6 +47,22 @@ export class UserService {
         this.api.getAll().subscribe({
             next: users => this._allUsers.set(users),
             error: () => this._error.set('Failed to load users')
+        });
+    }
+
+    loadUserById(id: number) {
+        this._detailLoading.set(true);
+        this._detailError.set(null);
+
+        this.api.getById(id).subscribe({
+            next: user => {
+                this._selectedUser.set(user);
+                this._detailLoading.set(false);
+            },
+            error: () => {
+                this._detailError.set('Failed to load user detail');
+                this._detailLoading.set(false);
+            }
         });
     }
 

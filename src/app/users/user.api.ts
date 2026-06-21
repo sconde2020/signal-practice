@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from './user';
+import { User } from '../user';
 
 @Injectable({ providedIn: 'root' })
 export class UserApi {
@@ -10,6 +10,10 @@ export class UserApi {
 
     getAll(): Observable<User[]> {
         return this.http.get<User[]>(this.url);
+    }
+
+    getById(id: number): Observable<User> {
+        return this.http.get<User>(`${this.url}/${id}`);
     }
 
     getFiltered(city?: string, company?: string): Observable<User[]> {
